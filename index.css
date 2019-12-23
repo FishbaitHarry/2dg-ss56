@@ -1,33 +1,4 @@
-.cartesian-map {
-  position: fixed;
-  width: 3200px;
-  height: 3200px;
-  border: 2px red solid;
-  transition: all 200ms ease;
-}
-.map-entity {
-  position: absolute;
-  overflow: hidden;
-  width: 32px;
-  height: 32px;
-  transition: all 200ms ease;
-}
 
-.player {
-  background-image: url('./icons/mob/golems.dmi');
-  z-index: 2;
-}
-.thing {
-  background-image: url('./icons/mob/golems.dmi');
-  background-position: 34px;
-  z-index: 1;
-}
-.floor {
-  background-image: url('./icons/turf/floors.dmi');
-}
-
-
-/*new*/
 #viewport {
   position: absolute;
   width: 500px;
@@ -44,25 +15,30 @@
   position: absolute;
   width: 50px;
   height: 50px;
+  overflow: hidden;
   box-sizing: border-box;
   transition: opacity 1s;
+  background-size: auto 100%;
+  font-size: 0;
 }
 .hidden {
   opacity: 0;
 }
 .floor {
-  background: gray;
-  border: 1px solid black;
+  background-image: url('./icons/turf/floors.dmi');
 }
 .character {
-  background: blue;
-  border-radius: 50%;
+  background-image: url('./icons/mob/golems.dmi');
   transition: top 1s, left 1s;
   z-index: 3;
 }
 .enemy {
-  background: red;
-  border-radius: 50%;
+  background-image: url('./icons/mob/golems.dmi');
+  background-position: 50px;
   transition: top 1s, left 1s;
   z-index: 2;
+}
+.door {
+  background-image: url('./icons/obj/doors/Doorglass.dmi');
+  z-index: 1;
 }

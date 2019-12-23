@@ -58,7 +58,7 @@ function placeStartingEntities(entities) {
     id: 'door-1',
     door: true,
     bulky: true,
-    parentId: 'floor-5050'
+    parentId: 'floor-1313'
   };
   entities.push(someDoor);
 }

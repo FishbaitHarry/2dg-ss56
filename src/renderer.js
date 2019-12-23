@@ -1,4 +1,4 @@
-export function initizalizeRenderer(sector) {
+export function initializeRenderer(sector) {
   let entities = sector.getEntities();
   let canvas = document.querySelector('#canvas');
   let cameraMan = entities.find(e=>e.player);
@@ -11,7 +11,7 @@ export function initizalizeRenderer(sector) {
 
   return {
     render() {
-      updateVisibility(entities, cameraMan)
+      updateVisibility(entities, cameraMan);
       renderAll(canvas, entities);
       centerCamera(canvas, cameraMan);
     }
@@ -19,28 +19,47 @@ export function initizalizeRenderer(sector) {
 }
 
 function renderAll(canvas, entities) {
-  entities.forEach( e => renderOne(canvas, e) );
+  entities.forEach( entity => {
+    if (!entity.el) createOne(canvas, entity);
+    updateOne(entity);
+  });
 }
 
-function renderOne(canvas, entity) {
-  if (!entity.el) {
-    if (!entity.visible) return;
-    entity.el = document.createElement("div");
+function linkParents(entities, entity) {
+  if (!entity.parentId) return;
+  if (entity.parent) return;
+  entity.parent = entities.find(e=>e.id==entity.parentId);
+}
+
+function createOne(canvas, entity) {
+  if (!entity.visible) return;
+  entity.el = document.createElement("div");
+  entity.el.append(entity.id);
+
+  if (entity.x != null) {
     canvas.append(entity.el);
-    entity.el.append(entity.id);
+  } else if (entity.parent) {
+    entity.parent.el.append(entity.el);
   }
+}
+
+function updateOne(entity) {
+  if (!entity.el) return;
 
   let classList = ['entity'];
   if (!entity.visible) classList.push('hidden');
   if (entity.character) classList.push('character');
   if (entity.red) classList.push('enemy');
   if (entity.floor) classList.push('floor');
+  if (entity.door) classList.push('door');
   entity.el.className = classList.join(' ');
 
   if (!entity.visible) return;
-  let top = entity.y * 50;
-  let left = entity.x * 50;
-  entity.el.setAttribute('style', `top: ${top}px; left: ${left}px`);
+  if (entity.x != null) {
+    let top = entity.y * 50;
+    let left = entity.x * 50;
+    entity.el.setAttribute('style', `top: ${top}px; left: ${left}px`);
+  }
 }
 
 function centerCamera(canvas, guy) {
@@ -50,5 +69,12 @@ function centerCamera(canvas, guy) {
 }
 
 function updateVisibility(entities, guy) {
-  entities.forEach(et => et.visible = (et.x - guy.x)*(et.x - guy.x) + (et.y - guy.y)*(et.y - guy.y) < 14)
+  entities.forEach(et => {
+    if (et.parentId) linkParents(entities, et);
+    if(et.parent) {
+      et.visible = et.parent.visible;
+    } else {
+      et.visible = (et.x - guy.x)*(et.x - guy.x) + (et.y - guy.y)*(et.y - guy.y) < 14;
+    }
+  });
 }
