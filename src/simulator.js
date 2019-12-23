@@ -36,10 +36,10 @@ function chaseMove(entities, guy, moveTarget) {
   let isRight = 0 > moveTarget.x - guy.x;
 
   // check for collision
-  isUp    = isUp    && !isSpaceTaken(entities, x, y+1);
-  isDown  = isDown  && !isSpaceTaken(entities, x, y-1);
-  isLeft  = isLeft  && !isSpaceTaken(entities, x+1, y);
-  isRight = isRight && !isSpaceTaken(entities, x-1, y);
+  isUp    = isUp    && !isSpaceTaken(entities, guy.x, guy.y+1);
+  isDown  = isDown  && !isSpaceTaken(entities, guy.x, guy.y-1);
+  isLeft  = isLeft  && !isSpaceTaken(entities, guy.x+1, guy.y);
+  isRight = isRight && !isSpaceTaken(entities, guy.x-1, guy.y);
 
   guy.x = guy.x + (isLeft ? 1 : 0) + (isRight ? -1 : 0);
   guy.y = guy.y + (isUp ? 1 : 0) + (isDown ? -1 : 0);
@@ -49,8 +49,8 @@ function chaseMove(entities, guy, moveTarget) {
 function isSpaceTaken(entities, x, y) {
   return entities.find( entity => {
     if (!entity.bulky) return false;
-    if (!entity.x == x) return false;
-    if (!entity.y == y) return false;
+    if (entity.x != x) return false;
+    if (entity.y != y) return false;
     return true;
   });
 }

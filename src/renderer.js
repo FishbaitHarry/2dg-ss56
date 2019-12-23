@@ -27,10 +27,16 @@ function renderOne(canvas, entity) {
     if (!entity.visible) return;
     entity.el = document.createElement("div");
     canvas.append(entity.el);
-    entity.el.append(entity.type);
+    entity.el.append(entity.id);
   }
-  let hidden = entity.visible ? '' : ' hidden';
-  entity.el.className = entity.class + hidden;
+
+  let classList = ['entity'];
+  if (!entity.visible) classList.push('hidden');
+  if (entity.character) classList.push('character');
+  if (entity.red) classList.push('enemy');
+  if (entity.floor) classList.push('floor');
+  entity.el.className = classList.join(' ');
+
   if (!entity.visible) return;
   let top = entity.y * 50;
   let left = entity.x * 50;
