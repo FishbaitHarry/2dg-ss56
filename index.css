@@ -1,0 +1,68 @@
+.cartesian-map {
+  position: fixed;
+  width: 3200px;
+  height: 3200px;
+  border: 2px red solid;
+  transition: all 200ms ease;
+}
+.map-entity {
+  position: absolute;
+  overflow: hidden;
+  width: 32px;
+  height: 32px;
+  transition: all 200ms ease;
+}
+
+.player {
+  background-image: url('./icons/mob/golems.dmi');
+  z-index: 2;
+}
+.thing {
+  background-image: url('./icons/mob/golems.dmi');
+  background-position: 34px;
+  z-index: 1;
+}
+.floor {
+  background-image: url('./icons/turf/floors.dmi');
+}
+
+
+/*new*/
+#viewport {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border: 1px solid red;
+}
+#canvas {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  transition: top 1s, left 1s;
+}
+.entity {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  transition: opacity 1s;
+}
+.hidden {
+  opacity: 0;
+}
+.floor {
+  background: gray;
+  border: 1px solid black;
+}
+.character {
+  background: blue;
+  border-radius: 50%;
+  transition: top 1s, left 1s;
+  z-index: 3;
+}
+.enemy {
+  background: red;
+  border-radius: 50%;
+  transition: top 1s, left 1s;
+  z-index: 2;
+}

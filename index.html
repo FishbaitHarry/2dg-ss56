@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Renderer Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="packageVersion" content="<%= htmlWebpackPlugin.options.packageVersion %>">
+
+  <link rel="icon" href="icons/ss13_32.png" type="image/png">
+  <link rel="shortcut icon" href="icons/ss13_32.png" type="image/png">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <div id="viewport">
+    <div id="canvas">
+    </div>
+  </div>
+
+  <!-- <script type="text/javascript" src="./node_modules/dot-dom/dist/dotdom.min.js"></script>
+  <script type="text/javascript" src="./node_modules/dot-dom/dist/plugin-keyed.min.js"></script> -->
+  <script type="text/javascript" src="./renderer.js"></script>
+</body>
+</html>
