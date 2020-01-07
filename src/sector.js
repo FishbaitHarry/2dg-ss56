@@ -3,6 +3,7 @@
 export function initializeSector() {
   let size = 100;
   let cells = createCells(size);
+  let mixedCells = mixCellsOrder(cells, size);
   let entities = [];
 
   placeStartingEntities(entities);
@@ -43,6 +44,8 @@ export function initializeSector() {
     getEntities() { return entities; },
     getRootEntities() { return entities.map(e=>!e.parentId); },
     getCell,
+    getCells() { return cells; },
+    getMixedCells() { return mixedCells; },
     addEntity,
     updateCoordinates,
     getNeighborhood
@@ -73,6 +76,23 @@ function createCells(size) {
     }
   }
   return cells;
+}
+
+// returns cells in a chessboard-like order
+// for 10:10 grid, it's: 0,2,4,6,8,11,13,15,17,19,20,22,...,96,98
+function mixCellsOrder(cells, size) {
+  let newCells1 = [];
+  let newCells2 = [];
+  for (var i = 0; i < size; i++) {
+    for (var j = 0; j < size; j++) {
+      if ( (i+j)%2 == 0 ) {
+        newCells1.push(cells[i+j*size]);
+      } else {
+        newCells2.push(cells[i+j*size]);
+      }
+    }
+  }
+  return newCells1.concat(newCells2);
 }
 
 
