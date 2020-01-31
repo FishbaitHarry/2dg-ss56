@@ -7,6 +7,7 @@ export function initializeSector() {
   let entities = [];
 
   placeStartingEntities(entities);
+  entities.forEach( e => getCell(e.x, e.y).entities.push(e) );
 
   function getCell(x, y) {
     return cells[x+y*size];
@@ -26,8 +27,9 @@ export function initializeSector() {
     let newCell = getCell(coordinates.x, coordinates.y);
     // update cells first
     let oldIndex = oldCell.entities.indexOf(entity);
-    oldCell.entities[oldIndex] = oldCell.entities.pop();
-    newCell.push(entity);
+    let lastEntity = oldCell.entities.pop();
+    if (entity != lastEntity) oldCell.entities[oldIndex] = lastEntity;
+    newCell.entities.push(entity);
     // then rewrite x/y
     entity.x = coordinates.x;
     entity.y = coordinates.y;
@@ -110,6 +112,7 @@ function placeStartingEntities(entities) {
     id: 'main-guy',
     player: true,
     character: true,
+    bulky: true,
     x: 15, y: 15
   };
   entities.push(guy);
@@ -118,7 +121,7 @@ function placeStartingEntities(entities) {
     id: 'bad-guy',
     character: true,
     randomMove: true,
-    red: true,
+    enemy: true,
     x: 15, y: 15
   };
   entities.push(badGuy);
@@ -126,8 +129,20 @@ function placeStartingEntities(entities) {
   let someDoor = {
     id: 'door-1',
     door: true,
-    bulky: true,
-    parentId: 'floor-1313'
+    //parentId: 'floor-1313',
+    x: 13, y: 13
   };
   entities.push(someDoor);
+
+  let walls = [
+    {x: 12, y:13}, {x: 14, y:13}, {x: 15, y:13}, {x: 16, y:13},
+    {x: 12, y:14}, {x: 12, y:15}, {x: 12, y:16},
+    {x: 16, y:14}, {x: 16, y:15}, {x: 16, y:16},
+    {x: 12, y:17}, {x: 13, y:17}, {x: 14, y:17}, {x: 15, y:17}, {x: 16, y:17}
+  ];
+  walls.forEach( (coord, i) => entities.push({
+    id: `wall-${i}`,
+    x: coord.x, y: coord.y,
+    wall: true
+  }))
 }

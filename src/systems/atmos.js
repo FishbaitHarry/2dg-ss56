@@ -33,8 +33,8 @@ function balancePressure(sector) {
   sector.getCells().forEach( cell => {
     let horizontalNeighbor = sector.getCell(cell.x+1, cell.y);
     let verticalNeighbor = sector.getCell(cell.x, cell.y+1);
-    balancePressureBetween(cell, horizontalNeighbor);
-    balancePressureBetween(cell, verticalNeighbor);
+    if (horizontalNeighbor) balancePressureBetween(cell, horizontalNeighbor);
+    if (verticalNeighbor) balancePressureBetween(cell, verticalNeighbor);
   });
 }
 

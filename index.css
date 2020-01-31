@@ -20,9 +20,10 @@
   transition: opacity 1s;
   background-size: auto 100%;
   font-size: 0;
-}
-.hidden {
   opacity: 0;
+}
+.visible {
+  opacity: 1;
 }
 .floor {
   background-image: url('./icons/turf/floors.dmi');
@@ -38,7 +39,15 @@
   transition: top 1s, left 1s;
   z-index: 2;
 }
+.wall {
+  background-image: url('./icons/turf/walls.dmi');
+  z-index: 1;
+}
 .door {
   background-image: url('./icons/obj/doors/Doorglass.dmi');
+  background-position: 50px;
   z-index: 1;
+}
+.door.closed {
+  background-position: 0px;
 }
