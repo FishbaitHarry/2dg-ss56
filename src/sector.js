@@ -10,7 +10,8 @@ export function initializeSector() {
   entities.forEach( e => getCell(e.x, e.y).entities.push(e) );
 
   function getCell(x, y) {
-    return cells[x+y*size];
+    if (x >= size || y >= size) return null;
+    return cells[y+x*size];
   }
   function addEntity(entity) {
     entities.push(entity);
@@ -100,6 +101,7 @@ function mixCellsOrder(cells, size) {
 
 function placeStartingEntities(entities) {
   for (var i = 0; i < 10000; i++) {
+    if (i != 1015)
     entities.push({
       id: `floor-${i}`,
       floor: true,
@@ -129,6 +131,7 @@ function placeStartingEntities(entities) {
   let someDoor = {
     id: 'door-1',
     door: true,
+    wall: true,
     //parentId: 'floor-1313',
     x: 13, y: 13
   };

@@ -3,14 +3,17 @@ Character is anything that can move on its own and use items on items.
 Basically players go here, but possibly also enemies.
 
 {
-  id: 'main-guy',
-  x: 15, y: 15,
-  bulky: true,
+  id: 'main-guy', x: 15, y: 15,
   player: true, // controlled by real human
   character: true,
-  actionTarget: [object Object], // reference entity you want to use / click
-  moveTarget: [object Object], // reference entity you want to approach
-};
+  randomMove: false, // move randomly for debug purposes
+  actionTarget: [entity Object], // reference entity you want to use / click
+  moveTarget: [entity Object], // reference entity you want to approach
+
+  // this system adds the following tags
+  pressedWith: [entity Object], // actions add this to other entities
+  pushTo: {x: 5, y: 6} // walking characters attempt to move this way
+}
 */
 export function initializeCharacters(sector) {
   let entities = sector.getEntities();
@@ -20,6 +23,11 @@ export function initializeCharacters(sector) {
 }
 
 function tick(sector) {
+  // reset presses
+  sector.getEntities()
+    .filter(e=>e.pressedWith)
+    .forEach(e=>e.pressedWith = false);
+
   // stupid bots generate random push commands
   sector.getEntities()
     .filter(e=>e.randomMove)
@@ -68,9 +76,10 @@ function interact(sector, guy, actionTarget) {
   if (Math.abs(guy.x - actionTarget.x) > 1) return;
   if (Math.abs(guy.y - actionTarget.y) > 1) return;
   actionTarget.pressedWith = guy;
+  guy.actionTarget = false;
 }
 
-// returns first thing in the way
+// returns first wall-thing in the way, ignores bulky
 function isSpaceTaken(sector, x, y) {
   let cell = sector.getCell(x, y);
   if (!cell) return false;

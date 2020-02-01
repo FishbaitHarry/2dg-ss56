@@ -50,6 +50,9 @@ function updateOne(entity) {
   entity.el.className = 'entity ' + classes.filter(c => entity[c]).join(' ');
 
   if (!entity.visible) return;
+  if (entity.pressure != null) {
+    entity.el.innerText = entity.pressure;
+  }
   if (entity.x != null) {
     let top = entity.y * 50;
     let left = entity.x * 50;

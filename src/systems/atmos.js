@@ -25,6 +25,7 @@ function updateCellInfo(cells) {
   cells.forEach( cell => {
     cell.hasFloor = cell.entities.find( e => e.floor );
     cell.hasWall = cell.entities.find( e => e.wall );
+    if (cell.hasFloor) cell.hasFloor.pressure = cell.pressure;
   });
 
 }
@@ -42,6 +43,6 @@ function balancePressureBetween(cell1, cell2) {
   if (!cell1.hasFloor) cell1.pressure = 0;
   if (!cell2.hasFloor) cell2.pressure = 0;
   if (cell1.hasWall || cell2.hasWall) return;
-  let avgPressure = (cell1.pressure + cell2.pressure)/2;
+  let avgPressure = Math.floor((cell1.pressure + cell2.pressure)/2);
   cell1.pressure = cell2.pressure = avgPressure;
 }
