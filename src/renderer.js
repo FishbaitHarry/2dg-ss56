@@ -3,10 +3,10 @@ export function initializeRenderer(sector) {
   let canvas = document.querySelector('#canvas');
   let cameraMan = entities.find(e=>e.player);
 
-  canvas.addEventListener('click', setMoveTarget);
-  function setMoveTarget(event) {
+  canvas.addEventListener('click', setTarget);
+  function setTarget(event) {
     let el = event.target;
-    cameraMan.moveTarget = entities.find(et => et.el == el);
+    cameraMan.actionTarget = entities.find(et => et.el == el);
   }
 
   return {

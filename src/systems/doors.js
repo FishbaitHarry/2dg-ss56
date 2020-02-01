@@ -20,7 +20,9 @@ function tick(entities) {
   entities.filter(e => e.door)
   .forEach( door => {
     door.doorTimer = door.doorTimer ? door.doorTimer-1 : 0;
-    door.doorTimer = door.collidedWith ? 20 : door.doorTimer;
+    let openBtnPressed = (door.collidedWith || door.pressedWith) && !door.reqAuth;
+    door.pressedWith = false;
+    door.doorTimer = openBtnPressed ? 20 : door.doorTimer;
     door.closed = (door.doorTimer == 0);
     door.wall = door.closed;
   });
