@@ -26,6 +26,10 @@
 .visible {
   opacity: 1;
 }
+.space {
+  background-image: url('./icons/turf/space.dmi');
+  animation: 3s steps(3, jump-start) 0s infinite normal none running simple-animation;
+}
 .floor {
   background-image: url('./icons/turf/floors.dmi');
 }
@@ -51,4 +55,10 @@
 }
 .door.closed {
   background-position: 0px;
+}
+
+@keyframes simple-animation {
+  from {background-position: 0px;}
+  50% {background-position: -50px;}
+  to {background-position: -100px;}
 }

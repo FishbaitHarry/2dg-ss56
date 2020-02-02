@@ -110,6 +110,13 @@ function placeStartingEntities(entities) {
     });
   }
 
+  entities.push({
+    id: `spaace`,
+    space: true,
+    x: 10,
+    y: 15
+  });
+
   let guy = {
     id: 'main-guy',
     player: true,

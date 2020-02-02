@@ -1,6 +1,7 @@
 export function initializeRenderer(sector) {
   let entities = sector.getEntities();
   let canvas = document.querySelector('#canvas');
+  let statusEl = document.querySelector('#status');
   let cameraMan = entities.find(e=>e.player);
 
   canvas.addEventListener('click', setTarget);
@@ -14,6 +15,7 @@ export function initializeRenderer(sector) {
       updateVisibility(entities, cameraMan);
       renderAll(canvas, entities);
       centerCamera(canvas, cameraMan);
+      statusBarUpdate(statusEl, cameraMan, sector);
     }
   };
 }
@@ -46,13 +48,10 @@ function createOne(canvas, entity) {
 function updateOne(entity) {
   if (!entity.el) return;
 
-  let classes = ['visible', 'character', 'enemy', 'floor', 'wall', 'door', 'closed'];
+  let classes = ['visible', 'character', 'enemy', 'floor', 'wall', 'door', 'closed', 'space'];
   entity.el.className = 'entity ' + classes.filter(c => entity[c]).join(' ');
 
   if (!entity.visible) return;
-  if (entity.pressure != null) {
-    entity.el.innerText = entity.pressure;
-  }
   if (entity.x != null) {
     let top = entity.y * 50;
     let left = entity.x * 50;
@@ -75,4 +74,11 @@ function updateVisibility(entities, guy) {
       et.visible = (et.x - guy.x)*(et.x - guy.x) + (et.y - guy.y)*(et.y - guy.y) < 14;
     }
   });
+}
+
+function statusBarUpdate(statusEl, cameraMan, sector) {
+  statusEl.innerText = `
+    x: ${cameraMan.x}, y: ${cameraMan.y},
+    pressure: ${sector.getCell(cameraMan.x, cameraMan.y).pressure}
+  `;
 }
