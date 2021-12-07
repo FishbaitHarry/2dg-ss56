@@ -6,7 +6,9 @@ let sector = initializeSector();
 let simulator = initializeSimulator(sector);
 let renderer = initializeRenderer(sector);
 
-setInterval(loopIt, 500);
+//setInterval(loopIt, 500);
+document.addEventListener('keyup', (evt) => loopIt() );
+
 function loopIt() {
   simulator.tick();
   renderer.render();

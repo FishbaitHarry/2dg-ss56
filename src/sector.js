@@ -6,8 +6,7 @@ export function initializeSector() {
   let mixedCells = mixCellsOrder(cells, size);
   let entities = [];
 
-  placeStartingEntities(entities);
-  entities.forEach( e => getCell(e.x, e.y).entities.push(e) );
+  getStartingEntities().forEach( addEntity );
 
   function getCell(x, y) {
     if (x >= size || y >= size) return null;
@@ -17,7 +16,7 @@ export function initializeSector() {
     entities.push(entity);
     if (entity.x != null) {
       let cell = getCell(entity.x, entity.y) || [];
-      cell.push(entity);
+      cell.entities.push(entity);
     }
   }
   function updateCells() {
@@ -100,7 +99,9 @@ function mixCellsOrder(cells, size) {
 }
 
 
-function placeStartingEntities(entities) {
+function getStartingEntities() {
+  let entities = [];
+
   for (var i = 0; i < 10000; i++) {
     if (i != 1015)
     entities.push({
@@ -131,10 +132,26 @@ function placeStartingEntities(entities) {
     id: 'bad-guy',
     character: true,
     randomMove: true,
+    bulky: true,
     enemy: true,
-    x: 15, y: 15
+    x: 14, y: 15
   };
   entities.push(badGuy);
+
+  entities.push({
+    id: 'welder1',
+    parentId: 'main-guy',
+    welder: true,
+    handy: true,
+    // x: 14, y: 16
+  });
+
+  entities.push({
+    id: 'screwdriver1',
+    screwdriver: true,
+    handy: true,
+    x: 15, y: 16
+  });
 
   let someDoor = {
     id: 'door-1',
@@ -154,6 +171,9 @@ function placeStartingEntities(entities) {
   walls.forEach( (coord, i) => entities.push({
     id: `wall-${i}`,
     x: coord.x, y: coord.y,
+    weldable: true,
     wall: true
-  }))
+  }));
+
+  return entities;
 }

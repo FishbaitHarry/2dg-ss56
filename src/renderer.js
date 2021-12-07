@@ -51,7 +51,8 @@ function createOne(canvas, entity) {
 function updateOne(entity) {
   if (!entity.el) return;
 
-  let classes = ['visible', 'character', 'enemy', 'floor', 'wall', 'door', 'closed', 'space'];
+  let classes = ['visible', 'character', 'enemy', 'floor', 'wall', 'door', 'closed',
+    'space', 'scaffolding', 'welder', 'screwdriver'];
   entity.el.className = 'entity ' + classes.filter(c => entity[c]).join(' ');
 
   if (!entity.visible) return;

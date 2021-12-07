@@ -19,8 +19,8 @@
   box-sizing: border-box;
   transition: opacity 1s;
   background-size: auto 100%;
-  /* font-size: 0; */
-  font-size: 10px;
+  font-size: 0;
+  /* font-size: 10px; */
   opacity: 0;
 }
 .visible {
@@ -55,6 +55,21 @@
 }
 .door.closed {
   background-position: 0px;
+}
+.scaffolding {
+  background-image: url('./icons/obj/structures.dmi');
+  background-position: 0px;
+  z-index: 1;
+}
+.welder {
+  background-image: url('./icons/obj/items.dmi');
+  background-position: -1500px;
+  z-index: 1;
+}
+.screwdriver {
+  background-image: url('./icons/obj/items.dmi');
+  background-position: -1400px; /* 29th */
+  z-index: 1;
 }
 
 @keyframes simple-animation {

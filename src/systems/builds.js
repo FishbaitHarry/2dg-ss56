@@ -36,6 +36,7 @@ function disassebleWallsAndFloors(sector) {
     entity.wall = false;
     entity.floor = false;
     entity.scaffolding = true;
+    entity.bulky = true;
     entity.spawn = { // spawning new entities is done in bulk
       // x, y
       // pushTo
@@ -66,7 +67,7 @@ function assembleWallsAndFloors(sector) {
   });
 }
 
-function disassembleScaffoldings(params) {
+function disassembleScaffoldings(sector) {
   sector.getEntities()
   .filter(e=>e.scaffolding && e.pressedWith)
   .forEach( entity => {
@@ -83,7 +84,7 @@ function disassembleScaffoldings(params) {
   });
 }
 
-function assembleScaffoldings(params) {
+function assembleScaffoldings(sector) {
   sector.getEntities()
   .filter(e=>e.srods && e.pressedWith)
   .forEach( entity => {
