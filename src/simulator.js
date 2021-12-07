@@ -3,6 +3,7 @@ import { initializeKinetics } from './systems/kinetics.js';
 import { initializeElectrics } from './systems/electrics.js';
 import { initializeDoors } from './systems/doors.js';
 import { initializeCharacters } from './systems/characters.js';
+import { initializeBuilds } from './systems/builds.js';
 
 export function initializeSimulator(sector) {
 
@@ -11,6 +12,7 @@ export function initializeSimulator(sector) {
     initializeCharacters(sector),
     initializeKinetics(sector),
     initializeDoors(sector),
+    initializeBuilds(sector),
     // initializeElectrics(sector)
   ];
 

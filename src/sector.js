@@ -41,6 +41,7 @@ export function initializeSector() {
       for (var j = y-radius; j < y+radius; j++)
         if ( (x-i)*(x-i) + (y-j)*(y-j) < radius*radius )
           nearbyCells.push(getCell(i, j));
+    return nearbyCells;
   }
 
   return {

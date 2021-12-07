@@ -8,6 +8,9 @@ export function initializeRenderer(sector) {
   function setTarget(event) {
     let el = event.target;
     cameraMan.actionTarget = entities.find(et => et.el == el);
+    // use tool on an object
+    let interactionSource = cameraMan.leftHand || cameraMan;
+    interactionSource.actionTarget = cameraMan.actionTarget;
   }
 
   return {

@@ -16,7 +16,12 @@ Allows building walls and doors and floors.
 */
 export function initializeBuilds(sector) {
   return {
-    tick: () => tick()
+    tick: () => {
+      disassebleWallsAndFloors(sector);
+      assembleWallsAndFloors(sector);
+      disassembleScaffoldings(sector);
+      assembleScaffoldings(sector);
+    }
   }
 }
 
